@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SpaceShipMoveTouch : MonoBehaviour
 {
-   // public const string ON_COROUTINE = "MoveTowardsTouch";
+    public const string TURN_ON_COROUTINE = "TapToShoot";
     Rigidbody2D rb;
+    public Vector3 bulletPosition;
 
      void Start()
     {
@@ -34,9 +35,20 @@ public class SpaceShipMoveTouch : MonoBehaviour
         for (float i = 0; i < distance; i += Time.deltaTime)
         {
             transform.position = Vector3.Lerp(transform.position, shipPosition, i); // Transforming from current position slowly to the touch position 
-           // yield return null;
+      
         }
         transform.position = shipPosition;
+        StartCoroutine(TURN_ON_COROUTINE, touch);
+
+    }
+    IEnumerator TapToShoot(Touch t)
+    {
+        ShootTheBullets();
+        yield return null;
+    }
+    private void ShootTheBullets()
+    {
+        
     }
 
 
