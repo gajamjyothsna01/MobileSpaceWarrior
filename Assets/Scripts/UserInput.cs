@@ -11,6 +11,9 @@ namespace GalaxySpaceShooter
         //when the user presses and drags on the screen. if the user removes too quickly then its considered as tap
         public delegate void PanGestureMovement(Touch t);
         public static event PanGestureMovement OnPanGestureMovement;
+
+        public delegate void TapGesture(Touch t);
+        public static event TapGesture OnTapGesture;
         /*
 
         public delegate void PanHeldAction(Touch t);
@@ -38,7 +41,7 @@ namespace GalaxySpaceShooter
         #region PRIVATE VARAIBLES
         private Vector2 movement;           //Movement vector will track who far you move.
 
-       // private bool tapGestureFailed = false;  //tap Gesture will become,
+       private bool tapGestureFailed = false;  //tap Gesture will become,
         private float startTime;//will keep time when our gesture begins
         private Vector3 defaultAcceleration;
         private bool panGestureRecognized = false;// when we recognize gesture we gone make true
@@ -88,20 +91,28 @@ namespace GalaxySpaceShooter
 
                         }
                     }
+                    if (!tapGestureFailed)
+                    {
+                        if (OnTapGesture != null)
+                        {
+                            OnTapGesture(touch);
+                        }
+                    }
 
                 }
                 else
                 {
                     panGestureRecognized = false; // ready for the next pan gesture
+                    tapGestureFailed = false; //Making ready for the next tap.
                 }
 
 
-                  
-                   
 
-                  //  tapGestureFailed = false; //Making ready for the next tap.
-                   
-                
+
+
+
+
+
 
 
             }

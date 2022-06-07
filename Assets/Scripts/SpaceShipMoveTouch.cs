@@ -16,10 +16,12 @@ public class SpaceShipMoveTouch : MonoBehaviour
     private void OnEnable()
     {
         GalaxySpaceShooter.UserInput.OnPanGestureMovement += PositionOfShip;
+        GalaxySpaceShooter.UserInput.OnTapGesture += ShootBullets;
     }
     private void OnDisable()
     {
         GalaxySpaceShooter.UserInput.OnPanGestureMovement -= PositionOfShip;
+        GalaxySpaceShooter.UserInput.OnTapGesture -= ShootBullets;
     }
 
 
@@ -39,15 +41,15 @@ public class SpaceShipMoveTouch : MonoBehaviour
       
         }
         transform.position = shipPosition;
-        StartCoroutine(TURN_ON_COROUTINE, touch);
+        
 
 
     }
-    IEnumerator TapToShoot(Touch t)
+    public void ShootBullets(Touch t)
     {
         ShootTheBullets();
         Debug.Log("Shoot the Bullets");
-        yield return null;
+      
     }
     private void ShootTheBullets()
     {
