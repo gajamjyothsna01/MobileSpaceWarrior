@@ -6,7 +6,8 @@ public class SpaceShipMoveTouch : MonoBehaviour
 {
     public const string TURN_ON_COROUTINE = "TapToShoot";
     Rigidbody2D rb;
-    public Vector3 bulletPosition;
+    public Transform bulletPosition;
+    public GameObject bulletPrefab;
 
      void Start()
     {
@@ -40,15 +41,27 @@ public class SpaceShipMoveTouch : MonoBehaviour
         transform.position = shipPosition;
         StartCoroutine(TURN_ON_COROUTINE, touch);
 
+
     }
     IEnumerator TapToShoot(Touch t)
     {
         ShootTheBullets();
+        Debug.Log("Shoot the Bullets");
         yield return null;
     }
     private void ShootTheBullets()
     {
+        NextBullet();
+        Instantiate(bulletPrefab,bulletPosition.position, Quaternion.identity);
+      
         
+        
+    }
+    IEnumerator NextBullet()
+    {
+       
+        yield return new WaitForSeconds(5f);
+        Debug.Log("Coroutine Function");
     }
 
 
